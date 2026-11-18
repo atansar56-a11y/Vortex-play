@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080f20">
+  <meta name="description" content="VORTEX PLAY — discover original games, explore new worlds, and play something new.">
+  <title>VORTEX PLAY — Enter the Gameverse</title>
+  <style>
+    :root {
+      --bg: #080f20;
+      --panel: #101d35;
+      --panel-2: #142746;
+      --blue: #168bff;
+      --cyan: #65c9ff;
+      --white: #f7fbff;
+      --muted: #a8bdd8;
+      --line: rgba(160, 195, 235, .16);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--white);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1120px, calc(100% - 36px)); margin: auto; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(8, 15, 32, .9); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { font-weight: 950; letter-spacing: .08em; font-size: 1.05rem; }
+    .brand span { color: var(--cyan); }
+    .links { display: flex; align-items: center; gap: 25px; color: var(--muted); font-size: .92rem; }
+    .links a:hover { color: white; }
+    .menu { display: none; border: 1px solid var(--line); background: var(--panel); color: white; border-radius: 10px; padding: 9px 12px; }
+    .hero { padding: 76px 0 58px; overflow: hidden; }
+    .hero-box {
+      position: relative; isolation: isolate; overflow: hidden;
+      border: 1px solid var(--line); border-radius: 28px;
+      padding: clamp(28px, 6vw, 68px);
+      background:
+        radial-gradient(ellipse at 78% 45%, rgba(22,139,255,.27), transparent 42%),
+        linear-gradient(135deg, #12294b, #0b1428 65%);
+    }
+    .hero-box:after {
+      content: ""; position: absolute; z-index: -1; width: 340px; height: 340px;
+      right: -70px; top: 50%; transform: translateY(-50%);
+      border: 1px solid rgba(101,201,255,.22); border-radius: 50%;
+      box-shadow: 0 0 0 28px rgba(101,201,255,.035), 0 0 0 58px rgba(101,201,255,.025), 0 0 90px rgba(22,139,255,.22);
+    }
+    .eyebrow { color: var(--cyan); font-weight: 800; letter-spacing: .18em; font-size: .75rem; }
+    h1 { max-width: 680px; margin: 16px 0; font-size: clamp(2.5rem, 8vw, 5.4rem); line-height: .98; letter-spacing: -.055em; }
+    h1 span { color: var(--cyan); }
+    .intro { max-width: 510px; color: var(--muted); font-size: 1.05rem; }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-top: 20px; padding: 13px 20px; border-radius: 12px;
+      background: var(--blue); color: white; font-weight: 800;
+      box-shadow: 0 8px 28px rgba(22,139,255,.22);
+    }
+    .button:hover { filter: brightness(1.12); transform: translateY(-1px); }
+    section { padding: 28px 0 58px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+    h2 { margin: 0; font-size: clamp(1.55rem, 4vw, 2rem); letter-spacing: -.03em; }
+    .sub { margin: 5px 0 0; color: var(--muted); font-size: .94rem; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .game {
+      overflow: hidden; border: 1px solid var(--line); border-radius: 18px;
+      background: var(--panel); transition: transform .2s, border-color .2s;
+    }
+    .game:hover { transform: translateY(-4px); border-color: rgba(101,201,255,.55); }
+    .art { min-height: 170px; display: grid; place-items: center; position: relative; overflow: hidden; }
+    .art:before, .art:after { content: ""; position: absolute; border-radius: 50%; }
+    .art:before { width: 180px; height: 180px; border: 1px solid rgba(255,255,255,.24); box-shadow: 0 0 0 20px rgba(255,255,255,.04), 0 0 55px rgba(255,255,255,.15); }
+    .art:after { width: 90px; height: 90px; background: rgba(255,255,255,.10); filter: blur(18px); }
+    .art span { position: relative; z-index: 1; font-size: 2.5rem; filter: drop-shadow(0 8px 20px rgba(0,0,0,.3)); }
+    .racing { background: linear-gradient(135deg, #123d70, #087caa 55%, #15224a); }
+    .adventure { background: linear-gradient(135deg, #422a75, #166b83 55%, #13294a); }
+    .arcade { background: linear-gradient(135deg, #713c72, #b05b45 55%, #2b2856); }
+    .game-info { padding: 17px; }
+    .game-info h3 { margin: 0 0 5px; font-size: 1.08rem; }
+    .game-info p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .tag { display: inline-block; margin-top: 13px; padding: 5px 9px; border-radius: 999px; color: var(--cyan); background: rgba(101,201,255,.1); font-size: .72rem; font-weight: 800; }
+    .about {
+      border: 1px solid var(--line); border-radius: 20px; padding: 25px;
+      background: linear-gradient(120deg, rgba(20,39,70,.9), rgba(16,29,53,.65));
+    }
+    .about p { max-width: 760px; color: var(--muted); margin-bottom: 0; }
+    footer { border-top: 1px solid var(--line); padding: 25px 0 35px; color: var(--muted); font-size: .85rem; }
+    .footer-row { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    @media (max-width: 720px) {
+      .links { display: none; position: absolute; top: 70px; left: 0; right: 0; padding: 18px; background: #0b162b; border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start; }
+      .links.open { display: flex; }
+      .menu { display: block; }
+      .hero { padding-top: 28px; }
+      .hero-box { border-radius: 21px; }
+      .hero-box:after { width: 210px; height: 210px; right: -110px; opacity: .65; }
+      .grid { grid-template-columns: 1fr; }
+      .art { min-height: 155px; }
+      .section-head { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#home" aria-label="Vortex Play home">VORTEX <span>PLAY</span></a>
+      <nav class="links" id="navLinks" aria-label="Main navigation">
+        <a href="#home">Home</a><a href="#games">Games</a><a href="#about">About</a>
+      </nav>
+      <button class="menu" id="menuButton" aria-expanded="false" aria-controls="navLinks">Menu ☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="wrap">
+        <div class="hero-box">
+          <div class="eyebrow">WELCOME TO VORTEX PLAY</div>
+          <h1>YOUR NEXT<br>ADVENTURE<br><span>STARTS HERE.</span></h1>
+          <p class="intro">Discover original games, explore new worlds, and play something new. This is where our game-making journey begins.</p>
+          <a class="button" href="#games">Explore games&nbsp; →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="games">
+      <div class="wrap">
+        <div class="section-head">
+          <div><h2>Featured games</h2><p class="sub">Original worlds are in development. Stay tuned.</p></div>
+        </div>
+        <div class="grid">
+          <article class="game">
+            <div class="art racing"><span>🏎️</span></div>
+            <div class="game-info"><h3>Vortex Racing</h3><p>Race through neon tracks and chase the finish line.</p><span class="tag">COMING SOON</span></div>
+          </article>
+          <article class="game">
+            <div class="art adventure"><span>🌌</span></div>
+            <div class="game-info"><h3>Unknown Worlds</h3><p>Explore mysterious places and discover what lies beyond.</p><span class="tag">IN CONCEPT</span></div>
+          </article>
+          <article class="game">
+            <div class="art arcade"><span>🕹️</span></div>
+            <div class="game-info"><h3>Neon Rush</h3><p>A fast arcade challenge built for quick sessions.</p><span class="tag">PLANNED</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="about">
+          <div class="eyebrow">OUR MISSION</div>
+          <h2>Made for players. Built by us.</h2>
+          <p>VORTEX PLAY is an independent gaming project. We're starting small, learning as we build, and creating our own games one release at a time.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <strong>VORTEX PLAY</strong>
+      <span>© 2026 VORTEX PLAY · A growing indie gaming project</span>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const navLinks = document.getElementById('navLinks');
+    menuButton.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+</body>
+</html>
